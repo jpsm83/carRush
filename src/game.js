@@ -21,37 +21,29 @@ class Game {
         this.canvasContainer = this.gameScreen.querySelector('.canvas-container');
         this.containerWidth = this.canvasContainer.clientWidth;
         this.containerHeight = this.canvasContainer.clientHeight;
-        this.canvas.setAttribute('width', 800);
-        this.canvas.setAttribute('height', 600);
+        this.canvas.setAttribute("width", this.containerWidth);
+        this.canvas.setAttribute("height", this.containerHeight);
         this.player = new Player(this.canvas, 5);
 
-        function handleKeyDown(event) {
+        const handleKeyDown = (event) => {
             if (event.key === "ArrowUp") this.player.setDirection("up");
             else if (event.key === "ArrowDown") this.player.setDirection("down");
           }
-          const boundHandleKeyDown = handleKeyDown.bind(this);
-          document.body.addEventListener("keydown", boundHandleKeyDown);
+          document.body.addEventListener("keydown", handleKeyDown);
           this.startLoop();
         }
        
     startLoop() {
         const loop = () => {
-            if (this.cars.length < 6) {
-                if (Math.random() > 0.95) {
-                    const randomY = Math.floor((this.canvas.height - 20) * Math.random());
-                    const newCar = new Car(this.canvas, randomY, 5);
+            if (this.cars.length < 5) {
+                if (Math.random() > 0.97) {
+                    const randomY = Math.floor((this.canvas.height - 60) * Math.random());
+                    const newCar = new Car(this.canvas, randomY);
                     this.cars.push(newCar);
                 }
             }
-
             this.checkCollisions();
             this.player.updatePosition();
-
-            this.cars.forEach((car) => {
-            if (this.player.carCollided(car)) {
-                this.player.lives -= 1;
-            }
-            });
 
             this.cars = this.cars.filter((car) => {
                 car.updatePosition();
@@ -69,14 +61,22 @@ class Game {
             }
 
             this.updateGameStats();
-        };
-
+        }
         loop();
+    }
+
+    checkCarOvertaken() {
+        this.cars.forEach((car) => {
+            if (this.player.carOvertaken(car)) {
+                this.carsOvertaken += 1;
+            }
+        })
     }
 
     checkCollisions() {
         this.cars.forEach((car) => {
             if (this.player.carCollided(car)) {
+                createBangScreen();
                 this.player.removeLife();
                 console.log('lives', this.player.lives);
                 car.x = 0 - car.size;
@@ -87,6 +87,7 @@ class Game {
                 }
             }
         });
+
     }
     gameOver() {
         this.gameIsOver = true;
@@ -94,7 +95,6 @@ class Game {
     }
 
     updateGameStats() {
-        this.score += 10;
         this.livesElement.innerHTML = this.player.lives;
         this.scoreElement.innerHTML = this.player.score;
         this.carsOvertaken.innerHTML = this.player.carsOvertaken;

@@ -28,7 +28,6 @@ class Player {
         const screenBotton = this.canvas.height;
         const playerTop = this.y;
         const playerBotton = this.y + this.size;
-
         if (playerTop <= screenTop) {
             this.y = 0;
         } else
@@ -46,11 +45,13 @@ class Player {
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
     }
 
-    carOvertaken(car, game) {
+    carOvertaken(car) {
         const playerLeft = this.x;
         const carRight = car.x + car.size;
         if (playerLeft > carRight && carCollided === false) {
-            game.carsOvertaken += 1;
+            return true;
+        } else {
+            return false;
         }
     }
 

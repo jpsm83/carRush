@@ -80,10 +80,8 @@ function createBangScreen () {
             <h1> * * * BANG * * * </h1>
         </main>
     `)
-    // document.body.appendChild(bangScreen);
-    // .load(function() {
-    //     window.setTimeout(window.location.href = "https://www.google.co.in",5000);
-    //  });
+    document.body.appendChild(bangScreen);
+    document.body.appendChild(setTimeout(createGameScreen(), 1500));
 }
 
 function removeBangScreen () {
