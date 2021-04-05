@@ -41,7 +41,7 @@ class Player {
     }
 
     removeLife() {
-        this.life =- 1;
+        this.lives =- 1;
     }
 
     increaseSpeed() {
@@ -65,16 +65,24 @@ class Player {
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
     }
 
-    carCollided(cars) {
+    carOvertaken(car) {
+        const playerLeft = this.x;
+        const carRight = car.x + car.size;
+        if (playerLeft > carRight && carCollided === false) {
+            this.game.carsOvertaken += 1;
+        }
+    }
+
+    carCollided(car) {
         const playerLeft = this.x;
         const playerRight = this.x + this.size;
         const playerTop = this.y;
         const playerBottom = this.y + this.size;
 
-        const carLeft = cars.x;
-        const carRight = cars.x + cars.size;
-        const carTop = cars.y;
-        const carBottom = cars.y + cars.size;
+        const carLeft = car.x;
+        const carRight = car.x + car.size;
+        const carTop = car.y;
+        const carBottom = car.y + car.size;
 
         const crossVertical = playerBottom >= carTop && playerTop < carTop || playerTop <= carBottom && playerBottom > carBottom;
         const crossHorrizontal = playerLeft >= carRight && playerRight < carRight || playerRight <= carLeft && playerLeft > carLeft;

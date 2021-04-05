@@ -1,4 +1,4 @@
-class Cars {
+class Car {
     constructor(canvas, positionY, speed) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
