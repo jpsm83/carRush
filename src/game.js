@@ -21,9 +21,9 @@ class Game {
         this.canvasContainer = this.gameScreen.querySelector('.canvas-container');
         this.containerWidth = this.canvasContainer.clientWidth;
         this.containerHeight = this.canvasContainer.clientHeight;
-        this.canvas.setAttribute('width', this.containerWidth);
-        this.canvas.setAttribute('height', this.containerHeight);
-        this.player = new Player(this.canvas, 5)
+        this.canvas.setAttribute('width', 800);
+        this.canvas.setAttribute('height', 600);
+        this.player = new Player(this.canvas, 5);
 
         function handleKeyDown(event) {
             if (event.key === "ArrowUp") this.player.setDirection("up");
@@ -46,7 +46,13 @@ class Game {
 
             this.checkCollisions();
             this.player.updatePosition();
-            this.player.carCollided();
+
+            this.cars.forEach((car) => {
+            if (this.player.carCollided(car)) {
+                this.player.lives -= 1;
+            }
+            });
+
             this.cars = this.cars.filter((car) => {
                 car.updatePosition();
                 return car.isInsideScreen();

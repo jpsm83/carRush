@@ -43,7 +43,6 @@ function createGameScreen () {
                 <span class="value"></span>
             </div>
         </header>
-
         <div class="canvas-container">
             <canvas></canvas>
         </div>
@@ -81,7 +80,14 @@ function createBangScreen () {
             <h1> * * * BANG * * * </h1>
         </main>
     `)
-    document.body.appendChild(bangScreen);
+    // document.body.appendChild(bangScreen);
+    // .load(function() {
+    //     window.setTimeout(window.location.href = "https://www.google.co.in",5000);
+    //  });
+}
+
+function removeBangScreen () {
+    bangScreen.remove();
 }
 
 function startGame () {

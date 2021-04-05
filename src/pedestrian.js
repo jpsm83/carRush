@@ -1,11 +1,11 @@
 class Pedestrians {
-    constructor(canvas, speed) {
+    constructor(canvas, positionX) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.size = 30;
-        this.x = this.canvas.width;
+        this.x = positionX;
         this.y = this.canvas.height;
-        this.speed = speed;
+        this.speed = 5;
     }
 
     draw() {
@@ -14,16 +14,29 @@ class Pedestrians {
     }
 
     updatePosition() {
-        this.x -= this.speed;
         this.y += this.speed;
     }
 
     isInsideScreen() {
-        const righttArm = this.x + this.size;
-        const head = this.y - this.size;
-        const screenLeft = 0;
+        const head = this.y;
+        const foot = this.y + this.size;
         const screenBotton = this.canvas.height;
-        const isInside = righttArm > screenLeft && head < screenBotton;
+        const isInside = head < foot;
         return isInside;
+    }
+    increaseSpeed() {
+        if (this.speed < 20) {
+            this.speed += 5;
+        } else {
+            this.speed = 20;
+        }
+    }
+
+    decreaseSpeed() {
+        if (this.speed > 5) {
+            this.speed -= 5;
+        } else {
+            this.speed = 5;
+        }
     }
 }

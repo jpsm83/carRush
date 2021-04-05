@@ -5,7 +5,7 @@ class Player {
         this.lives = lives;
         this.size = 60;
         this.x = 50;
-        this.y = this.canvas.height - this.size / 2;
+        this.y = this.canvas.height / 2 - this.size / 2;
         this.direction = 0;
         this.speed = 5;
     }
@@ -20,14 +20,14 @@ class Player {
     }
 
     updatePosition() {
-        this.y =+ this.direction * this.speed;
+        this.y += this.direction * this.speed;
     }
 
     screenEdges() {
         const screenTop = 0;
         const screenBotton = this.canvas.height;
         const playerTop = this.y;
-        const playerBotton = this.y - this.size;
+        const playerBotton = this.y + this.size;
 
         if (playerTop <= screenTop) {
             this.y = 0;
@@ -35,29 +35,10 @@ class Player {
         if (playerBotton >= screenBotton) {
             this.y = this.canvas.height;
         }
-
-        // if (playerBottom >= screenBottom) this.setDirection("up");
-        // else if (playerTop <= screenTop) this.setDirection("down");
     }
 
     removeLife() {
-        this.lives =- 1;
-    }
-
-    increaseSpeed() {
-        if (this.speed < 20) {
-            this.speed += 5;
-        } else {
-            this.speed = 20;
-        }
-    }
-
-    decreaseSpeed() {
-        if (this.speed > 5) {
-            this.speed -= 5;
-        } else {
-            this.speed = 5;
-        }
+        this.lives -= 1;
     }
 
     draw() {
@@ -65,11 +46,11 @@ class Player {
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
     }
 
-    carOvertaken(car) {
+    carOvertaken(car, game) {
         const playerLeft = this.x;
         const carRight = car.x + car.size;
         if (playerLeft > carRight && carCollided === false) {
-            this.game.carsOvertaken += 1;
+            game.carsOvertaken += 1;
         }
     }
 
