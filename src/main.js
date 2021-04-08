@@ -60,8 +60,8 @@ function createGameOverScreen (score, carsOvertaken) {
     gameOverScreen = buildDom(`
         <main>
             <h1>GAME OVER</h1>
-            <p class='cars-overtaken'>You overtook </p><span class='cars-overtaken'>${carsOvertaken} cars</span>
-            <p class='score'>and reach the score of: <span class='score'>${score}...</span> </p>
+            <h3>You overtook </h3><p class='cars-overtaken'>${Math.floor(carsOvertaken)} cars</p>
+            <h3>and reach the score of: </h3><p class='final-score'>${Math.floor(score)} points.</p>
             <button>Race again...</button>
         </main>
     `)
@@ -72,20 +72,6 @@ function createGameOverScreen (score, carsOvertaken) {
 
 function removeGameOverScreen () {
     gameOverScreen.remove();
-}
-
-function createBangScreen () {
-    bangScreen = buildDom(`
-        <main>
-            <h1> * * * BANG * * * </h1>
-        </main>
-    `)
-    document.body.appendChild(bangScreen);
-    document.body.appendChild(setTimeout(createGameScreen(), 1500));
-}
-
-function removeBangScreen () {
-    bangScreen.remove();
 }
 
 function startGame () {

@@ -1,13 +1,13 @@
-class Pedestrians {
-    constructor(canvas, positionX) {
+class SpeedDownBox {
+    constructor(canvas, positionY) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.size = 20;
-        this.x = positionX;
-        this.y = 0;
-        this.speed = 5;
+        this.size = 30;
+        this.x = this.canvas.width;
+        this.y = positionY;
+        this.speed = 3;
         this.img = new Image();
-        this.img.src = 'img/kenny.jpg';
+        this.img.src = 'img/speedDown.jpg';
     }
 
     draw() {
@@ -22,13 +22,13 @@ class Pedestrians {
     }
 
     updatePosition() {
-        this.y += this.speed;
+        this.x -= this.speed;
     }
 
     isInsideScreen() {
-        const head = this.y;
-        const screenBotton = this.canvas.height;
-        const isInside = head < screenBotton;
+        const backOfSpeedDownBox = this.x + this.size;
+        const screenLeft = 0;
+        const isInside = backOfSpeedDownBox > screenLeft;
         return isInside;
     }
 }

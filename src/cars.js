@@ -6,11 +6,19 @@ class Car {
         this.x = this.canvas.width;
         this.y = positionY;
         this.speed = 5;
+        this.img = new Image();
+        this.img.src = 'img/coche03.jpg';
     }
 
     draw() {
-        this.ctx.fillStyle = 'red';
+        if (this.img) {
+            this.ctx.drawImage(
+                this.img, this.x, this.y, this.size, this.size
+            )
+        } else {
+        this.ctx.fillStyle = '#006400';
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
+        }
     }
 
     updatePosition() {
@@ -22,21 +30,5 @@ class Car {
         const screenLeft = 0;
         const isInside = backOfCar > screenLeft;
         return isInside;
-    }
-    
-    increaseSpeed() {
-        if (this.speed < 20) {
-            this.speed += 5;
-        } else {
-            this.speed = 20;
-        }
-    }
-
-    decreaseSpeed() {
-        if (this.speed > 5) {
-            this.speed -= 5;
-        } else {
-            this.speed = 5;
-        }
     }
 }
